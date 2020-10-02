@@ -22,6 +22,6 @@ module.exports = gql`
 
     type Subscription {
         messageSent: Chat
-        getNotif(idUser: Int!): Notif
+        getNotif(idUser: Int!): [Notif]
     }
 `;

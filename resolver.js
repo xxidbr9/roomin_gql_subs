@@ -3,7 +3,7 @@ const allNotif = [];
 const otherNotif = [];
 
 const CHAT_CHANNEL = "CHAT_CHANNEL";
-const NOTIF = "NOTIF";
+// const NOTIF = "NOTIF";
 const OTHER_NOTIF = "OTHER_NOTIF";
 const NONE = "NOEN";
 
@@ -36,8 +36,9 @@ module.exports = {
             const rawNotif = { id: allNotif.length + 1, idUser, notif };
             allNotif.push(rawNotif);
 
-            const notf = pubsub.publish(NOTIF, { getNotif: rawNotif });
-            console.log("ini dari notif mutate", notf);
+            const NOTIF = `isNotif_from_${idUser}`;
+            const notf = pubsub.publish(NOTIF, { getNotif: allNotif });
+            // console.log("ini dari notif mutate", notf);
 
             const other = { id: otherNotif.length + 1, idUser, notif: "Babi" };
             otherNotif.push(other);
@@ -54,14 +55,12 @@ module.exports = {
             }
         },
         getNotif: {
-            subscribe: (root, args, { pubsub }) => {
-                console.log(args);
-                if (args.idUser == 1) {
-                    console.log("dari sub", pubsub.asyncIterator(NOTIF));
-                    return pubsub.asyncIterator(NOTIF);
-                } else {
-                    return pubsub.asyncIterator(NONE);
-                }
+            subscribe: (root, { idUser }, { pubsub }) => {
+                // console.log(pubsub.subscribe(NOTIF, { ok: "mantap" }));
+                // if (args.idUser == 1) {
+                // console.log("dari sub", pubsub.asyncIterator(NOTIF));
+                const NOTIF = `isNotif_from_${idUser}`;
+                return pubsub.asyncIterator(NOTIF);
             }
         }
     }

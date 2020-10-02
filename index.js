@@ -5,6 +5,7 @@ const resolver = require("./resolver");
 
 const pubsub = new PubSub();
 
+
 const server = new ApolloServer({
     resolvers: resolver,
     typeDefs: typeDef,
