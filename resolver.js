@@ -37,7 +37,8 @@ module.exports = {
             allNotif.push(rawNotif);
 
             const NOTIF = `isNotif_from_${idUser}`;
-            const notf = pubsub.publish(NOTIF, { getNotif: allNotif });
+            const filterNotif = allNotif.filter(e => e.idUser === idUser);
+            const notf = pubsub.publish(NOTIF, { getNotif: filterNotif });
             // console.log("ini dari notif mutate", notf);
 
             const other = { id: otherNotif.length + 1, idUser, notif: "Babi" };
